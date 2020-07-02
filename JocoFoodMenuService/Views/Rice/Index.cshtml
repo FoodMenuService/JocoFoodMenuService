@@ -1,0 +1,74 @@
+﻿@model IEnumerable<JocoFoodMenuService.Models.Rice>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    #btnCreate {
+        transition: 0.3s;
+    }
+
+        #btnCreate:hover {
+            transform: scale(1.03)
+        }
+</style>
+
+<p class="display-4">
+    Rice list
+</p>
+
+<p>
+    <a id="btnCreate" style="background-color:#ffaf40; color:white; border: 3px solid #dddddd " class="btn btn-sm btn-light rounded-pill" asp-action="Create">Create a new kind of rice</a>
+</p>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+
+                    <p class="text-center">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </p>
+
+                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                    <p>
+                        <a class="btn btn-sm btn-danger float-right mt-3" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div id="divImg" class="modal-dialog modal-dialog-centered modal-lg">
+
+    </div>
+</div>
+
+<style>
+    img:hover {
+        cursor: zoom-in;
+    }
+
+</style>
+
+@section Scripts{
+    <script>
+        $(document).on('click', 'img', function () {
+            if ($('#divImg').length > 0) {
+                $('#divImg').find('img').remove();
+            }
+            var imgPath = $(this).prop('src').replace('@($"{Context.Request.Scheme}://{Context.Request.Host}")', '');
+            $('#divImg').append('<img id="modalImg" src=' + imgPath + ' Alt="Img" />');
+            $('#myModal').modal('show')
+        });
+    </script>
+}

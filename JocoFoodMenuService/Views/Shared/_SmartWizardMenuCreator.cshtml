@@ -1,0 +1,68 @@
+﻿@model MenuInventoryClassList
+
+<div id="smartwizard">
+    <ul class="nav">
+        <li>
+            <a class="nav-link" href="#step-1">
+                Rices
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-2">
+                Grains
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-3">
+                Meats
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-4">
+                Complements
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-5">
+                Beverages
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="step-1" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Rice)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <p class="text-center">
+                                        @Html.DisplayFor(ModelItem => item.Name)
+                                    </p>
+
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div id="step-2" class="tab-pane" role="tabpanel">
+            Step content
+        </div>
+        <div id="step-3" class="tab-pane" role="tabpanel">
+            Step content
+        </div>
+        <div id="step-4" class="tab-pane" role="tabpanel">
+            Step content
+        </div>
+        <div id="step-5" class="tab-pane" role="tabpanel">
+            Step content
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿@model JocoFoodMenuService.Models.MenuCreator
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<p class="display-4">
+    Create your daily menu
+</p>
+
+@Html.Partial("_SmartWizardMenuCreator", (MenuInventoryClassList)ViewBag.InventoryList)
+
+
+
+
+
+@*<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MenuDaily" class="control-label"></label>
+                <input asp-for="MenuDaily" class="form-control" />
+                <span asp-validation-for="MenuDaily" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MenuDate" class="control-label"></label>
+                <input asp-for="MenuDate" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" disabled="disabled" class="form-control" />
+                <span asp-validation-for="MenuDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>*@
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function () {
+
+        // SmartWizard initialize
+
+        $('#smartwizard').smartWizard({
+            anchorSettings: {
+                enableAllAnchors: true
+            }
+        });
+
+    });
+</script>
+}
