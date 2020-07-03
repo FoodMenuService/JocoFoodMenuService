@@ -9,12 +9,12 @@
         </li>
         <li>
             <a class="nav-link" href="#step-2">
-                Grains
+                Meats
             </a>
         </li>
         <li>
             <a class="nav-link" href="#step-3">
-                Meats
+                Grains
             </a>
         </li>
         <li>
@@ -40,7 +40,7 @@
                                 <div class="card-body">
 
                                     <p class="text-center">
-                                        @Html.DisplayFor(ModelItem => item.Name)
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
                                     </p>
 
                                     <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
@@ -53,16 +53,92 @@
             </div>
         </div>
         <div id="step-2" class="tab-pane" role="tabpanel">
-            Step content
+            <div class="row">
+                @{
+                    foreach (var item in Model.Meats)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
         </div>
         <div id="step-3" class="tab-pane" role="tabpanel">
-            Step content
+            <div class="row">
+                @{
+                    foreach (var item in Model.Grains)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
         </div>
         <div id="step-4" class="tab-pane" role="tabpanel">
-            Step content
+            <div class="row">
+                @{
+                    foreach (var item in Model.Complements)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
         </div>
         <div id="step-5" class="tab-pane" role="tabpanel">
-            Step content
+            <div class="row">
+                @{
+                    foreach (var item in Model.Beverages)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
         </div>
     </div>
 </div>

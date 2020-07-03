@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JocoFoodMenuService.Data;
 using JocoFoodMenuService.Models;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace JocoFoodMenuService.Controllers
 {
@@ -54,8 +56,30 @@ namespace JocoFoodMenuService.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Grain grain)
+        public async Task<IActionResult> Create([Bind("Id,Name,UploadedImage,ImageUrl")] Grain grain)
         {
+            var webRoot = Directory.GetCurrentDirectory() + "\\wwwroot\\Images\\Uploads\\";
+
+            if (grain.UploadedImage == null)
+            {
+                return View(grain);
+            }
+
+            var filename = ContentDispositionHeaderValue
+                                    .Parse(grain.UploadedImage.ContentDisposition)
+                                    .FileName
+                                    .Trim('"');
+            filename = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images\\Uploads\\" + filename);
+            if (Directory.Exists(webRoot))
+            {
+                using (FileStream fs = System.IO.File.Create(filename))
+                {
+                    grain.UploadedImage.CopyTo(fs);
+                    fs.Flush();
+                }
+            }
+            grain.ImageUrl = "~/Images/Uploads/" + grain.UploadedImage.FileName;
+
             if (ModelState.IsValid)
             {
                 _context.Add(grain);

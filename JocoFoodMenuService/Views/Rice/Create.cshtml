@@ -4,10 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Rice</h4>
-<hr />
+<p class="display-4">
+    Upload a new Rice
+</p>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" asp-controller="Rice" method="post" enctype="multipart/form-data">
@@ -17,13 +16,13 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UploadedImage" class="control-label"></label>
-                <input asp-for="UploadedImage" required="required" type="file" class="form-control" />
+            <div id="divImg" class="form-group custom-file">
+                <input asp-for="UploadedImage" required="required" type="file" class="custom-file-input" />
+                <label asp-for="UploadedImage" class="custom-file-label"></label>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-primary rounded-pill" />
             </div>
         </form>
     </div>
@@ -51,7 +50,7 @@
                 let reader = new FileReader();
 
                 reader.addEventListener('load', function () {
-                    $('#UploadedImage').after('<p><img class="w-75 img-thumbnail mt-2" src=' + this.result + ' Alt="Img Preview" /></p>');
+                    $('#divImg').after('<p><img class="w-75 img-thumbnail mt-2" src=' + this.result + ' Alt="Img Preview" /></p>');
                 });
 
                 reader.readAsDataURL(imageFile);
