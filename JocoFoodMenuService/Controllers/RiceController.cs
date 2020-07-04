@@ -28,23 +28,7 @@ namespace JocoFoodMenuService.Controllers
             return View(await _context.Rice.ToListAsync());
         }
 
-        // GET: Rice/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var rice = await _context.Rice
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (rice == null)
-            {
-                return NotFound();
-            }
-
-            return View(rice);
-        }
+      
 
         // GET: Rice/Create
         public IActionResult Create()
@@ -160,8 +144,7 @@ namespace JocoFoodMenuService.Controllers
         }
 
         // POST: Rice/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var rice = await _context.Rice.FindAsync(id);

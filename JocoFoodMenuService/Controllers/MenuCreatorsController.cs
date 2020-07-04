@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JocoFoodMenuService.Data;
 using JocoFoodMenuService.Models;
+using Newtonsoft.Json;
 
 namespace JocoFoodMenuService.Controllers
 {
@@ -46,9 +47,9 @@ namespace JocoFoodMenuService.Controllers
         // GET: MenuCreators/Create
         public IActionResult Create()
         {
-            ViewBag.InventoryList = GetInventory();
+            var inventory = GetInventory();
 
-            return View();
+            return View(inventory);
         }
 
         private MenuInventoryClassList GetInventory()
@@ -72,20 +73,28 @@ namespace JocoFoodMenuService.Controllers
 
         }
 
-        // POST: MenuCreators/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MenuDaily,MenuDate")] MenuCreator menuCreator)
+        public async Task<IActionResult> Create(string foodCategories)
         {
-            if (ModelState.IsValid)
+
+            var obj = JsonConvert.DeserializeObject<MenuDeserializeObj>(foodCategories);
+
+            
+            if (!string.IsNullOrEmpty(foodCategories))
             {
+                var menuCreator = new MenuCreator()
+                {
+                    MenuDaily = foodCategories,
+                    MenuDate = DateTime.Now
+                };
+
                 _context.Add(menuCreator);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(menuCreator);
+
+            return Json(false);
         }
 
         // GET: MenuCreators/Edit/5

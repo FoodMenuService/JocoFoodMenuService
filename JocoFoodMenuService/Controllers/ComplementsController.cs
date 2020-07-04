@@ -159,8 +159,7 @@ namespace JocoFoodMenuService.Controllers
         }
 
         // POST: Complements/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var complement = await _context.Complement.FindAsync(id);

@@ -159,8 +159,7 @@ namespace JocoFoodMenuService.Controllers
         }
 
         // POST: Meats/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var meat = await _context.Meat.FindAsync(id);

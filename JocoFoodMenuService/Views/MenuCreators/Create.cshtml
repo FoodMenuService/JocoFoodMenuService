@@ -1,4 +1,4 @@
-﻿@model JocoFoodMenuService.Models.MenuCreator
+﻿@model JocoFoodMenuService.Models.MenuInventoryClassList
 
 @{
     ViewData["Title"] = "Create";
@@ -7,39 +7,158 @@
 <p class="display-4">
     Create your daily menu
 
-    <button id="createBtn" style="background:#32ff7e; color:white" class="float-right btn btn-sm mt-4 rounded-pill">Create menu</button>
+    <button id="createBtn" style="background:#28e72e; color:white" class="float-right btn btn-sm mt-4 rounded-pill">Create menu</button>
 </p>
 
+<div id="smartwizard">
+    <ul class="nav">
+        <li>
+            <a class="nav-link" href="#step-1">
+                Rices
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-2">
+                Meats
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-3">
+                Grains
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-4">
+                Complements
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-5">
+                Beverages
+            </a>
+        </li>
+    </ul>
 
-@await Html.PartialAsync("_SmartWizardMenuCreator", (MenuInventoryClassList)ViewBag.InventoryList)
+    <div class="toolbar toolbar-bottom" role="toolbar" style="text-align: right;">
+        <button class="btn sw-btn-prev disabled" type="button">Previous</button>
+        <button class="btn sw-btn-next" type="button">Next</button>
+    </div>
 
+    <div class="tab-content">
+        <div id="step-1" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Rice)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
 
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
 
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
 
-
-@*<div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="MenuDaily" class="control-label"></label>
-                    <input asp-for="MenuDaily" class="form-control" />
-                    <span asp-validation-for="MenuDaily" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="MenuDate" class="control-label"></label>
-                    <input asp-for="MenuDate" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" disabled="disabled" class="form-control" />
-                    <span asp-validation-for="MenuDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
-            <div>
-                <a asp-action="Index">Back to List</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
         </div>
-    </div>*@
+        <div id="step-2" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Meats)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div id="step-3" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Grains)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div id="step-4" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Complements)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div id="step-5" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Beverages)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@await Html.PartialAsync("_SmartWizardMenuCreator", (MenuInventoryClassList)ViewBag.InventoryList)*@
 
 <style>
     div.card {
@@ -68,7 +187,11 @@
                 anchorSettings: {
                     enableAllAnchors: true,
                     removeDoneStepOnNavigateBack: true
-                }
+                },
+                toolbarSettings: {
+                    showNextButton: false, // show/hide a Next button
+                    showPreviousButton: false, // show/hide a Previous button
+            }
             });
 
             $(document).on('click', 'div.card', function () {
@@ -88,21 +211,64 @@
 
             $('#createBtn').on('click', function () {
                 let foodNames = [];
+                let foodCategories = {'rice': [], 'meat': [], 'grain': [], 'complement': [], 'beverage': []};
 
-                for (var i = 1; i <= 5; i++) {
-                    $('#step-' + i).find('div.card').each(function () {
+                for (var i = 0; i <= 5; i++) {
+                    $('#step-' + (i+1)).find('div.card').each(function () {
                         if ($(this).find('svg').length > 0) {
                             foodNames.push($(this).find('label').html());
                         }
                     });
+                    switch (i) {
+                        case 0:
+                            foodCategories.rice.push(foodNames);
+                            break;
+                        case 1:
+                            foodCategories.meat.push(foodNames);
+                            break;
+                        case 2:
+                            foodCategories.grain.push(foodNames);
+                            break;
+                        case 3:
+                            foodCategories.complement.push(foodNames);
+                            break;
+                        case 4:
+                            foodCategories.beverage.push(foodNames);
+                            break;
+                        default:
+                    }
+
+                    foodNames = [];
                 }
-                
-                for (var i = 0; i < foodNames.length; i++) {
-                    console.log(foodNames[i]);
-                }
+
+                let values = JSON.stringify(foodCategories);
+
+                $.ajax({
+                    url: "@Url.Action("Create", "MenuCreators")",
+                    type: "post",
+                    data: {'foodCategories' : values },
+                    success: function (response) {
+                        if (response == false) {
+                            alert('the was an error');
+                        } else {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'The menu has been saved',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+
+                });
 
             });
 
         });
+
     </script>
 }

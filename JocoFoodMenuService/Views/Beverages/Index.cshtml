@@ -36,7 +36,7 @@
                     <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Beverage picture" />
 
                     <p>
-                        <a class="btn btn-sm btn-danger float-right mt-3" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-sm btn-danger text-white float-right mt-3" id="btnDelete" name="@item.Id">Delete</a>
                     </p>
 
                 </div>
@@ -69,5 +69,58 @@
             $('#divImg').append('<img id="modalImg" src=' + imgPath + ' Alt="Img" />');
             $('#myModal').modal('show')
         });
+
+        $(document).on('click', '#btnDelete', function () {
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+
+                    $.ajax({
+                        url: "@Url.Action("DeleteConfirmed")",
+                        type: "post",
+                        data: { 'id': $(this).attr('name') },
+                        success: function (response) {
+                            Swal.fire({
+                                title: 'Deleting item',
+                                html: '<b></b> milliseconds left.',
+                                timer: 1500,
+                                timerProgressBar: true,
+                                onBeforeOpen: () => {
+                                    Swal.showLoading()
+                                    timerInterval = setInterval(() => {
+                                        const content = Swal.getContent()
+                                        if (content) {
+                                            const b = content.querySelector('b')
+                                            if (b) {
+                                                b.textContent = Swal.getTimerLeft();
+                                            }
+                                        }
+                                    }, 100)
+                                },
+                                onClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            })
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+
+                    });
+                }
+            })
+        });
+
     </script>
 }
