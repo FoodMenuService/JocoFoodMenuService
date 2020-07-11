@@ -78,7 +78,9 @@ namespace JocoFoodMenuService.Controllers
         public async Task<IActionResult> Create(string foodCategories)
         {
 
+
             var obj = JsonConvert.DeserializeObject<MenuDeserializeObj>(foodCategories);
+
 
             
             if (!string.IsNullOrEmpty(foodCategories))

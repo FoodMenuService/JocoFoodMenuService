@@ -9,6 +9,17 @@ using JocoFoodMenuService.Models;
 
 namespace JocoFoodMenuService.Controllers
 {
+    public class KeyValue
+    {
+        public string Key { get; set; }
+        public string Value { get; set; }
+    }
+
+    public class KeyValuePair
+    { 
+        public List<KeyValue> KeyValues { get; set; }
+    }
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,6 +35,12 @@ namespace JocoFoodMenuService.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Privacy(KeyValuePair keyValuePair)
         {
             return View();
         }

@@ -1,6 +1,47 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@model JocoFoodMenuService.Controllers.KeyValuePair
 
-<p>Use this page to detail your site's privacy policy.</p>
+@using (Html.BeginForm("Privacy"))
+{
+    <div class="form-group form-inline">
+        <input id="inputRow" type="text" name="name" class="form-control col-md-3" placeholder="Input rows" />
+        <button id="btnRow" class="ml-3 btn btn-outline-dark">Add row</button>
+        <button type="submit" class="btn btn-success rounded-pill ml-auto">Submit</button>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+        <tr id="row">
+            <td><input type="text" name="Key" value="" class="form-control" /></td>
+            <td><input type="text" name="Value" value="" class="form-control" /></td>
+        </tr>
+    </table>
+
+}
+
+@section Scripts{ 
+
+    <script>
+
+        $('#btnRow').on('click', function (e) {
+            e.preventDefault();
+
+            const inputRow = $('#inputRow').val();
+
+            $('.table').find('tr#row').remove();
+
+            for (var i = 0; i < inputRow; i++) {
+                $('.table').append(
+                    `<tr id="row">
+                        <td><input type="text" name="Key"  class="form-control" /></td>
+                        <td><input type="text" name="Value" class="form-control" /></td>
+                    </tr>
+                    `);
+            }
+        });
+
+    </script>
+
+}

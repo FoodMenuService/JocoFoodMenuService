@@ -2,35 +2,14 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome <span id="loginUsr"></span></h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <p class="display-4">Welcome</p>
+    <p class="h4 font-weight-light">Joco's management menues it's a simple way to management your food menues</p>
 </div>
+<p class="text-center" style="margin-top:10%">
+    <a asp-action="Create" asp-controller="MenuCreators" class="btn purple-gradient btn-lg rounded-pill">Get started!</a>
+</p>
 
-<div class="col-md-3">
-    <h2 class="text-center"><span class="badge badge-dark">Local storage</span></h2>
-    <div class="form-group">
-        <input type="text" id="value" placeholder="Enter your name" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <button id="btnSave" class="btn btn-warning">Save</button>
-    </div>
-</div>
 @section Scripts{
 
-    <script>
-
-        $('#loginUsr').html(localStorage.getItem('name'));
-
-        $('#btnSave').on('click', function () {
-            const value = $('#value').val();
-
-            localStorage.setItem('name', value);
-
-            $('#loginUsr').html(value);
-
-        });
-
-    </script>
-}
+} 

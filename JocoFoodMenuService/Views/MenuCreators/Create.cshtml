@@ -7,7 +7,7 @@
 <p class="display-4">
     Create your daily menu
 
-    <button id="createBtn" style="background:#28e72e; color:white" class="float-right btn btn-sm mt-4 rounded-pill">Create menu</button>
+    <button id="createBtn" class="float-right btn peach-gradient mt-4 rounded-pill">Create menu</button>
 </p>
 
 <div id="smartwizard">
@@ -51,15 +51,14 @@
                     foreach (var item in Model.Rice)
                     {
                         <div class="col-md-3">
-                            <div class="card">
+                            <div class="card mb-4">
+                                <div class="view overlay">
+                                    <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Rice picture" />
+                                </div>
                                 <div class="card-body">
-
                                     <p class="text-center">
                                         <label>@Html.DisplayFor(ModelItem => item.Name)</label>
                                     </p>
-
-                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
-
                                 </div>
                             </div>
                         </div>
@@ -73,15 +72,14 @@
                     foreach (var item in Model.Meats)
                     {
                         <div class="col-md-3">
-                            <div class="card">
+                            <div class="card mb-4">
+                                <div class="view overlay">
+                                    <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Meat picture" />
+                                </div>
                                 <div class="card-body">
-
                                     <p class="text-center">
                                         <label>@Html.DisplayFor(ModelItem => item.Name)</label>
                                     </p>
-
-                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
-
                                 </div>
                             </div>
                         </div>
@@ -95,15 +93,14 @@
                     foreach (var item in Model.Grains)
                     {
                         <div class="col-md-3">
-                            <div class="card">
+                            <div class="card mb-4">
+                                <div class="view overlay">
+                                    <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Grain picture" />
+                                </div>
                                 <div class="card-body">
-
                                     <p class="text-center">
                                         <label>@Html.DisplayFor(ModelItem => item.Name)</label>
                                     </p>
-
-                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
-
                                 </div>
                             </div>
                         </div>
@@ -117,15 +114,14 @@
                     foreach (var item in Model.Complements)
                     {
                         <div class="col-md-3">
-                            <div class="card">
+                            <div class="card mb-4">
+                                <div class="view overlay">
+                                    <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Complement picture" />
+                                </div>
                                 <div class="card-body">
-
                                     <p class="text-center">
                                         <label>@Html.DisplayFor(ModelItem => item.Name)</label>
                                     </p>
-
-                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
-
                                 </div>
                             </div>
                         </div>
@@ -139,15 +135,14 @@
                     foreach (var item in Model.Beverages)
                     {
                         <div class="col-md-3">
-                            <div class="card">
+                            <div class="card mb-4">
+                                <div class="view overlay">
+                                    <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Beverage picture" />
+                                </div>
                                 <div class="card-body">
-
                                     <p class="text-center">
                                         <label>@Html.DisplayFor(ModelItem => item.Name)</label>
                                     </p>
-
-                                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
-
                                 </div>
                             </div>
                         </div>
@@ -216,24 +211,34 @@
                 for (var i = 0; i <= 5; i++) {
                     $('#step-' + (i+1)).find('div.card').each(function () {
                         if ($(this).find('svg').length > 0) {
-                            foodNames.push($(this).find('label').html());
+                            foodNames.push({ nombre: $(this).find('label').html(), foto: $(this).find('img').attr('src') });
                         }
                     });
                     switch (i) {
                         case 0:
-                            foodCategories.rice.push(foodNames);
+                            foodNames.forEach(item => {
+                                foodCategories.rice.push(item);
+                            })
                             break;
                         case 1:
-                            foodCategories.meat.push(foodNames);
+                            foodNames.forEach(item => {
+                                foodCategories.meat.push(item);
+                            });
                             break;
                         case 2:
-                            foodCategories.grain.push(foodNames);
+                            foodNames.forEach(item => {
+                                foodCategories.grain.push(item);
+                            });
                             break;
                         case 3:
-                            foodCategories.complement.push(foodNames);
+                            foodNames.forEach(item => {
+                                foodCategories.complement.push(item);
+                            });
                             break;
                         case 4:
-                            foodCategories.beverage.push(foodNames);
+                            foodNames.forEach(item => {
+                                foodCategories.beverage.push(item);
+                            });
                             break;
                         default:
                     }
@@ -241,34 +246,41 @@
                     foodNames = [];
                 }
 
-                let values = JSON.stringify(foodCategories);
+                if (confirm('Resume\n\n\nArroces: ' + foodCategories.rice.map(getNames) + '\n\nCarnes: ' + foodCategories.meat.map(getNames) + '\n\nGranos: ' + foodCategories.grain.map(getNames) + '\n\nComplementos: ' + foodCategories.complement.map(getNames) + '\n\nBebidas: ' + foodCategories.beverage.map(getNames))) {
 
-                $.ajax({
-                    url: "@Url.Action("Create", "MenuCreators")",
-                    type: "post",
-                    data: {'foodCategories' : values },
-                    success: function (response) {
-                        if (response == false) {
-                            alert('the was an error');
-                        } else {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'The menu has been saved',
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
+                    let values = JSON.stringify(foodCategories);
+
+                    $.ajax({
+                        url: "@Url.Action("Create", "MenuCreators")",
+                        type: "post",
+                        data: {'foodCategories' : values },
+                        success: function (response) {
+                            if (response == false) {
+                                alert('the was an error');
+                            } else {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'The menu has been saved',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
                         }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus, errorThrown);
-                    }
 
-                });
+                    });
+                }
 
             });
 
         });
+
+        function getNames(item) {
+            return item['nombre'];
+        }
 
     </script>
 }

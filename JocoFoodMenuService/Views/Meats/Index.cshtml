@@ -4,22 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<style>
-    #btnCreate {
-        transition: 0.3s;
-    }
-
-        #btnCreate:hover {
-            transform: scale(1.03)
-        }
-</style>
-
 <p class="display-4">
     Meat list
 </p>
 
 <p>
-    <a id="btnCreate" style="background-color:#ffaf40; color:white; border: 3px solid #dddddd " class="btn btn-sm btn-light rounded-pill" asp-action="Create">Create a new kind of Meat</a>
+    <a id="btnCreate" class="btn btn-sm blue-gradient rounded-pill" asp-action="Create">Create a new kind of Meat</a>
 </p>
 
 <div class="row">
