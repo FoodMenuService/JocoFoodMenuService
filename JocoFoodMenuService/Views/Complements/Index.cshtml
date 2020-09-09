@@ -81,7 +81,7 @@
                             Swal.fire({
                                 title: 'Deleting item',
                                 html: '<b></b> milliseconds left.',
-                                timer: 1500,
+                                timer: 1000,
                                 timerProgressBar: true,
                                 onBeforeOpen: () => {
                                     Swal.showLoading()
@@ -93,7 +93,7 @@
                                                 b.textContent = Swal.getTimerLeft();
                                             }
                                         }
-                                    }, 100)
+                                    }, 1000)
                                 },
                                 onClose: () => {
                                     clearInterval(timerInterval)

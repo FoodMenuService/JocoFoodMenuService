@@ -12,7 +12,7 @@
     <a id="btnCreate" class="btn btn-sm blue-gradient rounded-pill" asp-action="Create">Create a new kind of beverage</a>
 </p>
 
-<div class="row">
+<div class="card-deck">
     @foreach (var item in Model)
     {
         <div class="col-md-3">
@@ -82,7 +82,7 @@
                             Swal.fire({
                                 title: 'Deleting item',
                                 html: '<b></b> milliseconds left.',
-                                timer: 1500,
+                                timer: 1000,
                                 timerProgressBar: true,
                                 onBeforeOpen: () => {
                                     Swal.showLoading()
@@ -102,7 +102,7 @@
                             })
                             setTimeout(function () {
                                 location.reload();
-                            }, 1500);
+                            }, 1000);
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(textStatus, errorThrown);

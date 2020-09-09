@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JocoFoodMenuService.Data;
 using JocoFoodMenuService.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JocoFoodMenuService.Controllers
 {
@@ -87,6 +88,7 @@ namespace JocoFoodMenuService.Controllers
         }
 
         // DELETE: api/MenuCreatorsApi/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<MenuCreator>> DeleteMenuCreator(int id)
         {

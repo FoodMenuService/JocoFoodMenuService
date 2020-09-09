@@ -81,7 +81,7 @@
                             Swal.fire({
                                 title: 'Deleting item',
                                 html: '<b></b> milliseconds left.',
-                                timer: 1500,
+                                timer: 1000,
                                 timerProgressBar: true,
                                 onBeforeOpen: () => {
                                     Swal.showLoading()
@@ -101,7 +101,7 @@
                             })
                             setTimeout(function () {
                                 location.reload();
-                            }, 1500);
+                            }, 1000);
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(textStatus, errorThrown);

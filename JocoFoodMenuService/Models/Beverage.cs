@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using JocoFoodMenuService.Models.Interfaces;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace JocoFoodMenuService.Models
 {
-    public class Beverage
+    public class Beverage : IMenuFood
     {
         public int Id { get; set; }
         public string Name { get; set; }

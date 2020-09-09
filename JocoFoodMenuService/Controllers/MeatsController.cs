@@ -69,7 +69,9 @@ namespace JocoFoodMenuService.Controllers
                                     .Parse(meat.UploadedImage.ContentDisposition)
                                     .FileName
                                     .Trim('"');
+
             filename = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images\\Uploads\\" + filename);
+
             if (Directory.Exists(webRoot))
             {
                 using (FileStream fs = System.IO.File.Create(filename))
@@ -78,6 +80,7 @@ namespace JocoFoodMenuService.Controllers
                     fs.Flush();
                 }
             }
+
             meat.ImageUrl = "~/Images/Uploads/" + meat.UploadedImage.FileName;
 
             if (ModelState.IsValid)
@@ -170,7 +173,7 @@ namespace JocoFoodMenuService.Controllers
 
         private bool MeatExists(int id)
         {
-            return _context.Meat.Any(e => e.Id == id);
+            return _context.Meat.Count(x => x.Id == id) > 0;
         }
     }
 }

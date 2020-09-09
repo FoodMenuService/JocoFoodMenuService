@@ -1,12 +1,16 @@
 {
   "dependencies": {
-    "mssql1": {
-      "type": "mssql.local",
-      "connectionId": "DefaultConnection"
-    },
     "mssql2": {
+      "resourceId": null,
       "type": "mssql.local",
-      "connectionId": "JocoFoodMenuServiceContext"
+      "connectionId": "DefaultConnection",
+      "secretStore": null
+    },
+    "mssql1": {
+      "resourceId": null,
+      "type": "mssql.local",
+      "connectionId": "JocoFoodMenuServiceContext",
+      "secretStore": null
     }
   }
 }

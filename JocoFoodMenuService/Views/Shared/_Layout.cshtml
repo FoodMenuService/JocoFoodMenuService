@@ -56,7 +56,7 @@
     </header>
 
     @{
-            var className = (Context.Request.Path == "/" || Context.Request.Path == "/Home") ? "" : "container";
+        var className = (Context.Request.Path == "/" || Context.Request.Path == "/Home") ? "" : "container";
     }
 
     <div class="@className">
@@ -65,21 +65,23 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted text-center">
-        <div class="container">
-            <a target="_blank" href="https://www.facebook.com/jomar.corderogonzalez" class="btn-floating btn-lg btn-fb" type="button" role="button"><i class="fab fa-facebook-f"></i></a>
-            <!--Twitter-->
-            <a href="#" class="btn-floating btn-lg btn-tw" type="button" role="button"><i class="fab fa-twitter"></i></a>
-            <!--Google +-->
-            <a href="#" class="btn-floating btn-lg btn-gplus" type="button" role="button"><i class="fab fa-google-plus-g"></i></a>
-            <!--Linkedin-->
-            <a href="#" class="btn-floating btn-lg btn-li" type="button" role="button"><i class="fab fa-linkedin-in"></i></a>
-            <!--Instagram-->
-            <a href="#" class="btn-floating btn-lg btn-ins" type="button" role="button"><i class="fab fa-instagram"></i></a>
-            <!--Pinterest-->
-            <a href="#" class="btn-floating btn-lg btn-pin" type="button" role="button"><i class="fab fa-pinterest"></i></a>
-        </div>
-    </footer>
+    @{
+        if (Context.Request.RouteValues.Values.FirstOrDefault().ToString() == "Home")
+        {
+            <footer style="background: linear-gradient(40deg, #ff6ec4, #7873f5) !important" class="text-center footer text-muted">
+                    <span class="text-white">Joco's food service, inc. @DateTime.Now.Year</span>
+            </footer>
+        }
+        else
+        {
+            <footer class="text-center container my-4">
+                <hr />
+                Joco's food service, inc. @DateTime.Now.Year
+            </footer>
+        }
+    }
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>    <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

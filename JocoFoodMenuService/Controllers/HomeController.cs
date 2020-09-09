@@ -9,16 +9,6 @@ using JocoFoodMenuService.Models;
 
 namespace JocoFoodMenuService.Controllers
 {
-    public class KeyValue
-    {
-        public string Key { get; set; }
-        public string Value { get; set; }
-    }
-
-    public class KeyValuePair
-    { 
-        public List<KeyValue> KeyValues { get; set; }
-    }
 
     public class HomeController : Controller
     {
@@ -34,13 +24,14 @@ namespace JocoFoodMenuService.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Index(string usuario)
         {
-            return View();
+            return View("Index", usuario);
         }
 
-        [HttpPost]
-        public IActionResult Privacy(KeyValuePair keyValuePair)
+
+        public IActionResult Privacy()
         {
             return View();
         }

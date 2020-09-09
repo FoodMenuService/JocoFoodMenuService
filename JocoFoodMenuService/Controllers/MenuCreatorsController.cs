@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JocoFoodMenuService.Data;
 using JocoFoodMenuService.Models;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace JocoFoodMenuService.Controllers
 {
@@ -54,19 +53,13 @@ namespace JocoFoodMenuService.Controllers
 
         private MenuInventoryClassList GetInventory()
         {
-            var rices = _context.Rice.ToList();
-            var meats = _context.Meat.ToList();
-            var complements = _context.Complement.ToList();
-            var grains = _context.Grain.ToList();
-            var beverages = _context.Beverage.ToList();
-
-            MenuInventoryClassList list = new MenuInventoryClassList
+            var list = new MenuInventoryClassList
             {
-                Rice = rices,
-                Meats = meats,
-                Complements = complements,
-                Grains = grains,
-                Beverages = beverages
+                Rice = _context.Rice.ToList(),
+                Meats = _context.Meat.ToList(),
+                Complements = _context.Complement.ToList(),
+                Grains = _context.Grain.ToList(),
+                Beverages = _context.Beverage.ToList()
             };
 
             return list;
@@ -77,12 +70,8 @@ namespace JocoFoodMenuService.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(string foodCategories)
         {
-
-
             var obj = JsonConvert.DeserializeObject<MenuDeserializeObj>(foodCategories);
 
-
-            
             if (!string.IsNullOrEmpty(foodCategories))
             {
                 var menuCreator = new MenuCreator()
@@ -91,12 +80,28 @@ namespace JocoFoodMenuService.Controllers
                     MenuDate = DateTime.Now
                 };
 
+
                 _context.Add(menuCreator);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Json(true);
             }
 
             return Json(false);
+        }
+
+        public IActionResult CreateWithoutJS()
+        {
+            var inventory = GetInventory();
+
+            return View(inventory);
+        }
+
+        [HttpPost]
+        public IActionResult CreateWithoutJS(MenuInJson menuInJson)
+        {
+            var json = menuInJson;
+
+            return Json(true);
         }
 
         // GET: MenuCreators/Edit/5

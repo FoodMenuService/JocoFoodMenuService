@@ -19,9 +19,10 @@
 
             <div id="divImg" class="form-group">
                 <input asp-for="UploadedImage" required="required" type="file" style="display:none" />
-                <button id="btnTrigger" class="text-white btn btn-block btn-light rounded-pill" style="background: rgb(227,160,13); background: linear-gradient(180deg, rgba(227,160,13,1) 0%, rgba(255,193,2,1) 100%);">Upload an Image</button>
+                <button id="btnTrigger" class="btn btn-block btn-sm aqua-gradient rounded-pill" >Upload an Image</button>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+
 
             <div class="form-group mt-3">
                 <input type="submit" value="Create" class="btn btn-primary rounded-pill" />

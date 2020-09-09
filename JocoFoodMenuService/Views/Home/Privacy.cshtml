@@ -1,5 +1,4 @@
-﻿@model JocoFoodMenuService.Controllers.KeyValuePair
-
+﻿
 @using (Html.BeginForm("Privacy"))
 {
     <div class="form-group form-inline">
@@ -18,30 +17,5 @@
             <td><input type="text" name="Value" value="" class="form-control" /></td>
         </tr>
     </table>
-
-}
-
-@section Scripts{ 
-
-    <script>
-
-        $('#btnRow').on('click', function (e) {
-            e.preventDefault();
-
-            const inputRow = $('#inputRow').val();
-
-            $('.table').find('tr#row').remove();
-
-            for (var i = 0; i < inputRow; i++) {
-                $('.table').append(
-                    `<tr id="row">
-                        <td><input type="text" name="Key"  class="form-control" /></td>
-                        <td><input type="text" name="Value" class="form-control" /></td>
-                    </tr>
-                    `);
-            }
-        });
-
-    </script>
 
 }

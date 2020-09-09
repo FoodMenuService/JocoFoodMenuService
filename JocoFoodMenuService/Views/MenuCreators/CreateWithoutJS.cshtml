@@ -1,0 +1,183 @@
+﻿@model JocoFoodMenuService.Models.MenuInventoryClassList
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+@using (Html.BeginForm())
+{
+    <button id="createBtn" class="float-right btn peach-gradient mt-4 rounded-pill">Create menu</button>
+
+    <p class="display-4">
+        Create your daily menu
+    </p>
+
+    <div id="smartwizard">
+        <ul class="nav">
+            <li>
+                <a class="nav-link" href="#step-1">
+                    Rices
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" href="#step-2">
+                    Meats
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" href="#step-3">
+                    Grains
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" href="#step-4">
+                    Complements
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" href="#step-5">
+                    Beverages
+                </a>
+            </li>
+        </ul>
+
+        <div class="toolbar toolbar-bottom" role="toolbar" style="text-align: right;">
+            <button class="btn sw-btn-prev disabled" type="button">Previous</button>
+            <button class="btn sw-btn-next" type="button">Next</button>
+        </div>
+
+        <div class="tab-content">
+            <div id="step-1" class="tab-pane" role="tabpanel">
+                <div class="row">
+                    @{
+                        foreach (var item in Model.Rice)
+                        {
+                            <div class="col-md-3">
+                                <div class="card h-75 mb-4">
+                                    <div class="view overlay">
+                                        <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Rice picture" />
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="custom-control custom-checkbox text-center">
+                                            <input type="checkbox" class="custom-control-input" id="@string.Format("rice-{0}", item.Id)" name="Rice" value="@UtilityClass.SerializedMenu(item)">
+                                            <label class="custom-control-label text-center" for="@string.Format("rice-{0}", item.Id)">@Html.DisplayFor(ModelItem => item.Name)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div id="step-2" class="tab-pane" role="tabpanel">
+                <div class="row">
+                    @{
+                        foreach (var item in Model.Meats)
+                        {
+                            <div class="col-md-3">
+                                <div class="card h-75 mb-4">
+                                    <div class="view overlay">
+                                        <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Meat picture" />
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="custom-control custom-checkbox text-center">
+                                            <input type="checkbox" class="custom-control-input" id="@string.Format("meat-{0}", item.Id)" name="Meats" value="@UtilityClass.SerializedMenu(item)">
+                                            <label class="custom-control-label" for="@string.Format("meat-{0}", item.Id)">@Html.DisplayFor(ModelItem => item.Name)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div id="step-3" class="tab-pane" role="tabpanel">
+                <div class="row">
+                    @{
+                        foreach (var item in Model.Grains)
+                        {
+                            <div class="col-md-3">
+                                <div class="card h-75 mb-4">
+                                    <div class="view overlay">
+                                        <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Grain picture" />
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="custom-control custom-checkbox text-center">
+                                            <input type="checkbox" class="custom-control-input" id="@string.Format("grain-{0}", item.Id)" name="Grains" value="@UtilityClass.SerializedMenu(item)">
+                                            <label class="custom-control-label" for="@string.Format("grain-{0}", item.Id)">@Html.DisplayFor(ModelItem => item.Name)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div id="step-4" class="tab-pane" role="tabpanel">
+                <div class="row">
+                    @{
+                        foreach (var item in Model.Complements)
+                        {
+                            <div class="col-md-3">
+                                <div class="card h-75 mb-4">
+                                    <div class="view overlay">
+                                        <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Complement picture" />
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="custom-control custom-checkbox text-center">
+                                            <input type="checkbox" class="custom-control-input" id="@string.Format("complement-{0}", item.Id)" name="Complements" value="@UtilityClass.SerializedMenu(item)">
+                                            <label class="custom-control-label" for="@string.Format("complement-{0}", item.Id)">@Html.DisplayFor(ModelItem => item.Name)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div id="step-5" class="tab-pane" role="tabpanel">
+                <div class="row">
+                    @{
+                        foreach (var item in Model.Beverages)
+                        {
+                            <div class="col-md-3">
+                                <div class="card h-75 mb-4">
+                                    <div class="view overlay">
+                                        <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Beverage picture" />
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="custom-control custom-checkbox text-center">
+                                            <input type="checkbox" class="custom-control-input" id="@string.Format("beverage-{0}", item.Id)" name="Beverages" value="@UtilityClass.SerializedMenu(item)">
+                                            <label class="custom-control-label" for="@string.Format("beverage-{0}", item.Id)">@Html.DisplayFor(ModelItem => item.Name)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Scripts{
+
+    <script>
+
+        $('#smartwizard').smartWizard({
+            anchorSettings: {
+                enableAllAnchors: true,
+                removeDoneStepOnNavigateBack: true
+            },
+            toolbarSettings: {
+                showNextButton: false, // show/hide a Next button
+                showPreviousButton: false, // show/hide a Previous button
+            }
+        });
+
+    </script>
+
+}
