@@ -184,6 +184,32 @@ namespace JocoFoodMenuService.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult GetFoodByCategory(string categoryNumber)
+        {
+            if (!string.IsNullOrEmpty(categoryNumber))
+            {
+                var categoryNumberInInt = int.Parse(categoryNumber);
+
+                switch (categoryNumberInInt)
+                {
+                    case 1:
+                        return Json(_context.Rice.Select(x => new { x.Name, x.ImageUrl }).ToList());
+                    case 2:
+                        return Json(_context.Meat.Select(x => new { x.Name, x.ImageUrl }).ToList());
+                    case 3:
+                        return Json(_context.Grain.Select(x => new { x.Name, x.ImageUrl }).ToList());
+                    case 4:
+                        return Json(_context.Complement.Select(x => new { x.Name, x.ImageUrl }).ToList());
+                    case 5:
+                        return Json(_context.Beverage.Select(x => new { x.Name, x.ImageUrl }).ToList());
+                    default:
+                        break;
+                }
+            }
+
+            return Json("Error pasando el número de categoría");
+        }
+
         private bool MenuCreatorExists(int id)
         {
             return _context.MenuCreator.Any(e => e.Id == id);

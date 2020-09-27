@@ -40,7 +40,14 @@
         </li>
     </ul>
 
+
     <div class="toolbar toolbar-bottom" role="toolbar" style="text-align: right;">
+        <span id="addFood" title="Add" class="badge badge-primary float-left" style="cursor:pointer">
+            <svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+        </span>
+
         <button class="btn sw-btn-prev disabled" type="button">Previous</button>
         <button class="btn sw-btn-next" type="button">Next</button>
     </div>
@@ -195,6 +202,34 @@
     </div>
 </div>
 <!-- Full Height Modal Right -->
+<!-- Full Height Modal LEFT -->
+<div class="modal fade left" id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+
+    <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+    <div class="modal-dialog modal-full-height modal-left" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <strong class="modal-title">
+                    Select one to add
+                </strong>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                </ul>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-mdb-color" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Full Height Modal LEFT -->
+
 
 <style>
     div.card, img, label {
@@ -212,6 +247,21 @@
     dt, dd {
         margin-bottom: 40px;
     }
+
+    .scrolly {
+        overflow: scroll;
+        max-height: 600px;
+    }
+
+    li.list-group-item {
+        transition: 0.4s;
+        cursor: pointer;
+    }
+
+        li.list-group-item:hover {
+            background-color: #ecf0f1;
+            transform: scale(1.03);
+        }
 </style>
 
 
@@ -219,6 +269,58 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
+
+
+        $('#addFood').click(function () {
+            const currentStep = window.location.href.substring(window.location.href.lastIndexOf('-') + 1)
+
+            $.get('@Url.Action("GetFoodByCategory")', { categoryNumber: currentStep }, function (data) {
+                $('#fullHeightModalLeft').modal('show');
+
+                const $foodContainerList = $('#fullHeightModalLeft').find('ul.list-group');
+
+                if ($foodContainerList.find('li.list-group-item').length > 0) {
+                    $foodContainerList.find('li.list-group-item').remove();
+                }
+
+                for (var i = 0; i < data.length; i++) {
+
+                    $foodContainerList.append(`
+                  <li class="list-group-item">
+                   <img style="width:35%" class="img-thumbnail" src=`+ data[i].imageUrl.replace('~', '') + ` alt="No image">
+                    <label class="ml-3">` + data[i].name + `</label>
+                  </li>
+                    `)
+                }
+
+            });
+        });
+
+        $(document).on('click', 'li.list-group-item', function () {
+
+            const divStepId = window.location.href.substring(window.location.href.lastIndexOf('#') + 1)
+
+            $('div#' + divStepId).children().append(`
+
+                   <div class="col-md-3">
+                        <div class="card h-75 mb-4">
+                            <div class="view overlay">
+                                <img src=`+ $(this).children('img').attr('src') +` class="card-img-top" alt="Beverage picture" />
+                            </div>
+                            <div class="card-body">
+                                <p class="text-center">
+                                    <label>`+ $(this).children('label').text() +`</label>
+                                </p>
+                            </div>
+                        </div>
+                   </div>
+
+            `)
+
+            $(this).css('background-color','#7bed9f').addClass('animated fadeOutRight').delay(600).queue(function () { $(this).remove(); });
+
+
+        })
 
         $('div.card').find('p').append(`<svg style="color:#32ff7e; font-size: 24px;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -243,10 +345,7 @@
             const $divP = $(this).find('p');
 
             if ($divP.children('svg').length > 0) {
-                $divP.children('svg').hide(200);
-                setTimeout(function () {
-                    $divP.children('svg').remove();
-                }, 200);
+                $divP.children('svg').hide(200).delay(200).queue(function () { $divP.children('svg').remove(); });
             } else {
 
                 $divP.append(`<svg style="color:#32ff7e; font-size: 24px; display: none;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -357,7 +456,7 @@
 
         function MenuVacio(foodCategories) {
 
-            if (foodCategories.rice.length == 0 && foodCategories.meat.length == 0 && foodCategories.grain.length == 0 && foodCategories.complement.length == 0 && foodCategories.beverage.length == 0) {
+            if (foodCategories.rice.length == 0 && foodCategories.meats.length == 0 && foodCategories.grains.length == 0 && foodCategories.complements.length == 0 && foodCategories.beverages.length == 0) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
