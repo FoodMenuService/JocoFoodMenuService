@@ -22,24 +22,6 @@ namespace JocoFoodMenuService.Controllers
         // GET: MenuCreators
         public async Task<IActionResult> Index() => View(await _context.MenuCreator.ToListAsync());
 
-        // GET: MenuCreators/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var menuCreator = await _context.MenuCreator
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (menuCreator == null)
-            {
-                return NotFound();
-            }
-
-            return View(menuCreator);
-        }
-
         // GET: MenuCreators/Create
         public IActionResult Create()
         {
@@ -155,27 +137,8 @@ namespace JocoFoodMenuService.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: MenuCreators/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var menuCreator = await _context.MenuCreator
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (menuCreator == null)
-            {
-                return NotFound();
-            }
-
-            return View(menuCreator);
-        }
-
         // POST: MenuCreators/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var menuCreator = await _context.MenuCreator.FindAsync(id);
