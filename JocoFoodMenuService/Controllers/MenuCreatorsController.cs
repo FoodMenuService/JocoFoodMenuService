@@ -20,10 +20,7 @@ namespace JocoFoodMenuService.Controllers
         }
 
         // GET: MenuCreators
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.MenuCreator.ToListAsync());
-        }
+        public async Task<IActionResult> Index() => View(await _context.MenuCreator.ToListAsync());
 
         // GET: MenuCreators/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -117,31 +114,33 @@ namespace JocoFoodMenuService.Controllers
             {
                 return NotFound();
             }
-            return View(menuCreator);
+
+            var menuToEdit = JsonConvert.DeserializeObject<MenuInventoryClassList>(menuCreator.MenuDaily);
+
+            ViewBag.MenuEditId = menuCreator.Id;
+
+            return View(menuToEdit);
         }
 
         // POST: MenuCreators/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MenuDaily,MenuDate")] MenuCreator menuCreator)
+        public async Task<IActionResult> Edit(int id, string foodCategories)
         {
-            if (id != menuCreator.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(menuCreator);
+                    var menuCreator = await _context.MenuCreator.FindAsync(id);
+
+                    menuCreator.MenuDaily = foodCategories;
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MenuCreatorExists(menuCreator.Id))
+                    if (!MenuCreatorExists(id))
                     {
                         return NotFound();
                     }
@@ -152,7 +151,8 @@ namespace JocoFoodMenuService.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(menuCreator);
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: MenuCreators/Delete/5

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<JocoFoodMenuService.Models.Interfaces.IMenuFood>
+
+<p class="display-4">
+    @ViewData["Food"] list
+</p>
+
+<p>
+    <a id="btnCreate" class="btn btn-sm blue-gradient rounded-pill" asp-action="Create">Create new</a>
+</p>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div class="card mb-1" style="height:95%;">
+                <div class="card-body">
+
+                    <p class="text-center">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </p>
+
+                    <img src="@Url.Content(item.ImageUrl)" class="w-100 img-thumbnail" alt="Rice picture" />
+
+                    <p>
+                        <a class="btn btn-sm btn-danger text-white float-right mt-3" id="btnDelete" name="@item.Id">Delete</a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div id="divImg" class="modal-dialog modal-dialog-centered modal-lg">
+
+    </div>
+</div>
+
+<style>
+    img:hover {
+        cursor: zoom-in;
+    }
+</style>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+<script>
+
+    $(document).ready(function () {
+
+         $(document).on('click', 'img', function () {
+            if ($('#divImg').length > 0) {
+                $('#divImg').find('img').remove();
+            }
+            var imgPath = $(this).prop('src').replace('@($"{Context.Request.Scheme}://{Context.Request.Host}")', '');
+            $('#divImg').append('<img id="modalImg" src=' + imgPath + ' Alt="Img" />');
+            $('#myModal').modal('show')
+        });
+
+        $(document).on('click', '#btnDelete', function () {
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+
+                    $.ajax({
+                        url: "@Url.Action("DeleteConfirmed")",
+                        type: "post",
+                        data: { 'id': $(this).attr('name') },
+                        success: function (response) {
+                            Swal.fire({
+                                title: 'Deleting item',
+                                html: '<b></b> milliseconds left.',
+                                timer: 1000,
+                                timerProgressBar: true,
+                                onBeforeOpen: () => {
+                                    Swal.showLoading()
+                                    timerInterval = setInterval(() => {
+                                        const content = Swal.getContent()
+                                        if (content) {
+                                            const b = content.querySelector('b')
+                                            if (b) {
+                                                b.textContent = Swal.getTimerLeft();
+                                            }
+                                        }
+                                    }, 100)
+                                },
+                                onClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            })
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+
+                    });
+                }
+            })
+        });
+
+    })
+
+</script>

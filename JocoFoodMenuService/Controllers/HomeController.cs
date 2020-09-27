@@ -24,13 +24,6 @@ namespace JocoFoodMenuService.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Index(string usuario)
-        {
-            return View("Index", usuario);
-        }
-
-
         public IActionResult Privacy()
         {
             return View();

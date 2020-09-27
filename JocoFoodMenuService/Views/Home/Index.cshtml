@@ -4,6 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
+
 <div class="text-center mt-5">
     <p class="display-4">Welcome</p>
     <p class="h4 font-weight-light">Joco's management menues it's a simple way to management your food menues</p>
@@ -13,5 +14,20 @@
 </p>
 
 @section Scripts{
+
+    <script>
+
+
+
+        $('a.btn').mouseover(function () {
+            const element = document.querySelector('a.btn');
+            element.classList.add('animate__animated', 'animate__heartBeat');
+
+            element.addEventListener('animationend', () => {
+                element.classList.remove('animate__animated', 'animate__heartBeat')
+            });
+        })
+
+    </script>
 
 } 

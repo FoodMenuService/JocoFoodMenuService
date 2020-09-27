@@ -15,9 +15,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MenuDaily)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.MenuDate)
             </th>
             <th></th>
@@ -27,15 +24,11 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.MenuDaily)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.MenuDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning rounded-pill">Edit</a> 
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger rounded-pill">Delete</a>
             </td>
         </tr>
 }

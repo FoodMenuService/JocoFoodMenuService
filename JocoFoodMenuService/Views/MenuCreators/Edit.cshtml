@@ -1,39 +1,385 @@
-﻿@model JocoFoodMenuService.Models.MenuCreator
+﻿@model JocoFoodMenuService.Models.MenuInventoryClassList
 
 @{
     ViewData["Title"] = "Edit";
+    int menuId = ViewBag.MenuEditId;
 }
 
-<h1>Edit</h1>
+<button id="createBtn" class="float-right btn peach-gradient mt-4 rounded-pill">Update</button>
 
-<h4>MenuCreator</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="MenuDaily" class="control-label"></label>
-                <input asp-for="MenuDaily" class="form-control" />
-                <span asp-validation-for="MenuDaily" class="text-danger"></span>
+<p class="display-4">
+    Update your selected menu
+</p>
+
+<div id="smartwizard">
+    <ul class="nav">
+        <li>
+            <a class="nav-link" href="#step-1">
+                Rices
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-2">
+                Meats
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-3">
+                Grains
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-4">
+                Complements
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-5">
+                Beverages
+            </a>
+        </li>
+    </ul>
+
+    <div class="toolbar toolbar-bottom" role="toolbar" style="text-align: right;">
+        <button class="btn sw-btn-prev disabled" type="button">Previous</button>
+        <button class="btn sw-btn-next" type="button">Next</button>
+    </div>
+
+    <div class="tab-content">
+        <div id="step-1" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Rice)
+                    {
+                        <div class="col-md-3">
+                            <div class="card h-75 mb-4">
+                                <div class="view overlay">
+                                    <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Rice picture" />
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
-            <div class="form-group">
-                <label asp-for="MenuDate" class="control-label"></label>
-                <input asp-for="MenuDate" class="form-control" />
-                <span asp-validation-for="MenuDate" class="text-danger"></span>
+        </div>
+        <div id="step-2" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Meats)
+                    {
+                        <div class="col-md-3">
+                            <div class="card h-75 mb-4">
+                                <div class="view overlay">
+                                    <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Meat picture" />
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        <div id="step-3" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Grains)
+                    {
+                        <div class="col-md-3">
+                            <div class="card h-75 mb-4">
+                                <div class="view overlay">
+                                    <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Grain picture" />
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
-        </form>
+        </div>
+        <div id="step-4" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Complements)
+                    {
+                        <div class="col-md-3">
+                            <div class="card h-75 mb-4">
+                                <div class="view overlay">
+                                    <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Complement picture" />
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div id="step-5" class="tab-pane" role="tabpanel">
+            <div class="row">
+                @{
+                    foreach (var item in Model.Beverages)
+                    {
+                        <div class="col-md-3">
+                            <div class="card h-75 mb-4">
+                                <div class="view overlay">
+                                    <img src="@Url.Content(item.ImageUrl)" class="card-img-top" alt="Beverage picture" />
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-center">
+                                        <label>@Html.DisplayFor(ModelItem => item.Name)</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+@*@await Html.PartialAsync("_SmartWizardMenuCreator", (MenuInventoryClassList)ViewBag.InventoryList)*@
+
+<!-- Full Height Modal Right -->
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+
+    <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+    <div class="modal-dialog modal-full-height modal-right" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="text-center
+                    modal-title w-100" id="myModalLabel">
+                    <span class="badge badge-primary">Resumen</span>
+                </h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl class="row mt-5">
+                    <dt class="col-sm-3 text-md-right"><span class="badge badge-primary">Arroces</span></dt>
+                    <dd id="riceModal" class="col-sm-9"></dd>
+                    <dt class="col-sm-3 text-md-right"><span class="badge badge-danger">Carnes</span></dt>
+                    <dd id="meatModal" class="col-sm-9"></dd>
+                    <dt class="col-sm-3 text-md-right"><span class="badge badge-warning">Granos</span></dt>
+                    <dd id="grainModal" class="col-sm-9"></dd>
+                    <dt class="col-sm-3 text-md-right"><span class="badge badge-success">Complementos</span></dt>
+                    <dd id="complementModal" class="col-sm-9"></dd>
+                    <dt class="col-sm-3 text-md-right"><span class="badge badge-info">Bebidas</span></dt>
+                    <dd id="beverageModal" class="col-sm-9"></dd>
+                </dl>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="confirmMenu" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- Full Height Modal Right -->
+
+<style>
+    div.card, img, label {
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        div.card:hover {
+            transform: scale(1.03);
+            -webkit-box-shadow: 0px 0px 20px -6px rgba(51,242,17,1);
+            -moz-box-shadow: 0px 0px 20px -6px rgba(51,242,17,1);
+            box-shadow: 0px 0px 20px -6px rgba(51,242,17,1);
+        }
+
+    dt, dd {
+        margin-bottom: 40px;
+    }
+</style>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+        $('div.card').find('p').append(`<svg style="color:#32ff7e; font-size: 24px;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                                    </svg>`);
+
+        var food;
+
+        $('#smartwizard').smartWizard({
+            anchorSettings: {
+                enableAllAnchors: true,
+                removeDoneStepOnNavigateBack: true
+            },
+            toolbarSettings: {
+                showNextButton: false, // show/hide a Next button
+                showPreviousButton: false, // show/hide a Previous button
+            }
+        });
+
+        $(document).on('click', 'div.card', function () {
+
+            const $divP = $(this).find('p');
+
+            if ($divP.children('svg').length > 0) {
+                $divP.children('svg').hide(200);
+                setTimeout(function () {
+                    $divP.children('svg').remove();
+                }, 200);
+            } else {
+
+                $divP.append(`<svg style="color:#32ff7e; font-size: 24px; display: none;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                                    </svg>`);
+
+                $('svg').show(200);
+            }
+        });
+
+        $('#createBtn').on('click', function () {
+
+            let foodNames = [];
+            let foodCategories = { 'rice': [], 'meats': [], 'grains': [], 'complements': [], 'beverages': [] };
+
+            for (var i = 0; i <= 5; i++) {
+                $('#step-' + (i + 1)).find('div.card').each(function () {
+                    if ($(this).find('svg').length > 0) {
+                        foodNames.push({ name: $(this).find('label').html(), imageUrl: $(this).find('img').attr('src') });
+                    }
+                });
+                switch (i) {
+                    case 0:
+                        foodNames.forEach(item => {
+                            foodCategories.rice.push(item);
+                        })
+                        break;
+                    case 1:
+                        foodNames.forEach(item => {
+                            foodCategories.meats.push(item);
+                        });
+                        break;
+                    case 2:
+                        foodNames.forEach(item => {
+                            foodCategories.grains.push(item);
+                        });
+                        break;
+                    case 3:
+                        foodNames.forEach(item => {
+                            foodCategories.complements.push(item);
+                        });
+                        break;
+                    case 4:
+                        foodNames.forEach(item => {
+                            foodCategories.beverages.push(item);
+                        });
+                        break;
+                    default:
+                }
+
+                foodNames = [];
+            }
+
+            if (MenuVacio(foodCategories)) {
+                return;
+            }
+
+            fillModal(foodCategories);
+
+            food = foodCategories;
+
+            $('#fullHeightModalRight').modal('show');
+
+        });
+
+        $('#confirmMenu').click(function () {
+
+            let values = JSON.stringify(food);
+
+            $.ajax({
+                url: "@Url.Action("Edit", "MenuCreators")",
+                type: "post",
+                data: {'foodCategories' : values, 'id': @menuId },
+                success: function (response) {
+                if (response == false) {
+                    alert('the was an error');
+                } else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'The menu has been updated',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1500)
+
+                $('#fullHeightModalRight').modal('hide');
+                    return;
+                }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown, jqXHR);
+                }
+            });
+        });
+
+        function getNames(item, i, list) {
+
+            if (list.length == i + 1) {
+                return item['name'] + '.';
+            }
+            return item['name'] + ', ';
+        }
+
+        function MenuVacio(foodCategories) {
+
+            if (foodCategories.rice.length == 0 && foodCategories.meat.length == 0 && foodCategories.grain.length == 0 && foodCategories.complement.length == 0 && foodCategories.beverage.length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'El menú está vacio!',
+                })
+                return true;
+            }
+
+            return false;
+        }
+
+        function fillModal(foodCategories) {
+
+            $('dd').html('');
+
+            $('#riceModal').append(foodCategories.rice.map(getNames));
+            $('#meatModal').append(foodCategories.meats.map(getNames));
+            $('#grainModal').append(foodCategories.grains.map(getNames));
+            $('#complementModal').append(foodCategories.complements.map(getNames));
+            $('#beverageModal').append(foodCategories.beverages.map(getNames));
+
+        }
+
+    </script>
 }
